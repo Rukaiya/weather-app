@@ -1,36 +1,61 @@
-<h1>Today's Weather</h1>
-
-<form action="" method="post">
-    {% csrf_token %}
-    <input type="submit" class="button" value="Add City"  placeholder="City Name">
-    {{form.name}}
-</form>
-<section>
-    <div class="container">
-      <div class="columns">
-        <div class="column is-offset-4 is-4">
-        {% for city_weather in weather_data%}
-          <div class="box">
-            <article class="media">
-              <div class="media-left">
-                <figure class="image">
-                  <img src=" http://openweathermap.org/img/w/{{city_weather.icon}}.png" alt="image" />
-                </figure>
-              </div>
-              <div class="media-content">
-                <div class="media-content">
-                  <p>
-                    <span class="title">{{city_weather.city}}<span>
-                    </span>{{city_weather.temperature}}</span>
-                    <br>
-                    {{city_weather.description}}
-                </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .is-success{
+      background-color: rgba(3, 54, 3, 0.8);
+      color: azure;
+    }
+    .is-danger{
+      background-color: rgba(94, 3, 3, 0.8);
+      color: azure;
+    }
+  </style>
+</head>
+<body>
+  <h1>Today's Weather</h1>
+  
+  <form action="" method="post">
+      {% csrf_token %}
+      {{form.name}}
+      <input type="submit" class="button" value="Add City">
+  
+      {% if message %}
+      <div class="notification {{message_class}}">{{message}}</div>
+      {% endif %}
+  </form> 
+  <section>
+      <div class="container">
+        <div class="columns">
+          <div class="column is-offset-4 is-4">
+          {% for city_weather in weather_data%}
+            <div class="box">
+              <article class="media">
+                <div class="media-left">
+                  <figure class="image">
+                    <img src=" http://openweathermap.org/img/w/{{city_weather.icon}}.png" alt="image" />
+                  </figure>
                 </div>
-              </div>
-            </article>
+                <div class="media-content">
+                  <div class="media-content">
+                    <p>
+                      <span class="title">{{city_weather.city}}<span>
+                      </span>{{city_weather.temperature}}</span>
+                      <br>
+                      {{city_weather.description}}
+                  </p>
+                  </div>
+                </div>
+              </article>
+            </div>
+            {% endfor %}
           </div>
-          {% endfor %}
         </div>
       </div>
-    </div>
-</section>
+  </section>
+</body>
+</html>
